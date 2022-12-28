@@ -40,28 +40,6 @@ class UserRepository {
             throw {error}  
         }
     }
-
-    createToken(user) {
-        try {
-            const result = jwt.sign(user, JWT_KEY, {expiresIn : '1h'} );
-            return result;
-        } catch (error) {
-            console.log('Something went wrong in the token creation');
-            throw {error};            
-        }
-    }
-
-    verifyToken(token) {
-        try {
-            const response = jwt.verify(token, JWT_KEY);
-            return response;
-        } catch (error) {
-            console.log('Something went wrong in token verification', error);
-            throw {error}
-        }
-    }
-
-
 }
 
 module.exports = UserRepository;
