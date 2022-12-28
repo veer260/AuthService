@@ -17,8 +17,7 @@ class UserRepository {
 
     async destroy(dataId) {
         try {
-            await User.destroy({
-                where : {
+            await User.destroy({ where : {
                     id : dataId,
                 }
             });
@@ -38,6 +37,19 @@ class UserRepository {
         } catch (error) {
             console.log('Something went wrong in the repository layer');
             throw {error}  
+        }
+    }
+
+    async getByEmail(dataEmail) {
+        try {
+            const user = await User.findOne({ where : {
+                    email : dataEmail
+                }
+            });
+            return user;
+        } catch (error) {
+            console.log('Something went wrong in the repo layer');
+            throw error;
         }
     }
 }
