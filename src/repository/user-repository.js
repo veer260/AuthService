@@ -3,6 +3,8 @@ const { User } = require('../models/index');
 const jwt = require('jsonwebtoken');
 const { JWT_KEY } = require('../config/serverConfig');
 const ValidationError = require('../utils/validation-error');
+const ClientError = require('../utils/client.error');
+const { StatusCodes } = require('http-status-codes');
 
 class UserRepository {
 
@@ -50,6 +52,14 @@ class UserRepository {
                     email : dataEmail
                 }
             });
+            if(!user) {
+                throw new ClientError(
+                    'Attribute not found',
+                    'Invalid email sent in the request',
+                    'Please check the email, there is no record of this email',
+                    StatusCodes.NOT_FOUND
+                )
+            }
             return user;
         } catch (error) {
             console.log('Something went wrong in the repo layer');

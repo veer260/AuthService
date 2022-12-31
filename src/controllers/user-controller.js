@@ -36,11 +36,11 @@ const signin = async(req, res) => {
         })
     } catch (error) {
         console.log(error);
-            res.status(500).json( {
+        res.status(error.statusCode).json( {
             data : {},
             success : false,
-            message : "Unable to signin as a user",
-            err : {error}
+            message : error.message,
+            err : error.explaination
     })     
     }
 }
